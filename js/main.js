@@ -635,7 +635,6 @@ startxref
     const CARD_COUNT = orbitingCards.length;
     let currentAngle = 0;
     const orbitSpeed = 0.0035;
-    let isHovered = false;
 
     function getRadii() {
       const stageW = orbitalStage.offsetWidth || 480;
@@ -646,9 +645,8 @@ startxref
 
     function updateOrbit() {
       const { rx, ry } = getRadii();
-      if (!isHovered) {
-        currentAngle += orbitSpeed;
-      }
+      // Continuous circular rotation
+      currentAngle += orbitSpeed;
 
       orbitingCards.forEach((card, i) => {
         const angle = currentAngle + (i * (2 * Math.PI / CARD_COUNT));
@@ -659,15 +657,19 @@ startxref
         const y = sinA * ry;
         const z = sinA;
 
+        // Hover & focus accessibility scale enhancement
+        const isCardHovered = card.matches(':hover') || (document.activeElement === card);
+        const hoverMultiplier = isCardHovered ? 1.08 : 1.0;
+
         let scale, zIndex, opacity;
         if (z >= 0) {
-          scale = 0.94 + (z * 0.12);
-          zIndex = Math.round(20 + z * 10);
+          scale = (0.94 + (z * 0.12)) * hoverMultiplier;
+          zIndex = isCardHovered ? 60 : Math.round(20 + z * 10);
           opacity = 1;
         } else {
-          scale = 0.94 + (z * 0.14);
-          zIndex = Math.round(5 + z * 4);
-          opacity = 0.65 + ((1 + z) * 0.25);
+          scale = (0.94 + (z * 0.14)) * hoverMultiplier;
+          zIndex = isCardHovered ? 50 : Math.round(5 + z * 4);
+          opacity = isCardHovered ? 1 : 0.65 + ((1 + z) * 0.25);
         }
 
         card.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
@@ -678,8 +680,6 @@ startxref
       requestAnimationFrame(updateOrbit);
     }
 
-    orbitalStage.addEventListener('mouseenter', () => { isHovered = true; });
-    orbitalStage.addEventListener('mouseleave', () => { isHovered = false; });
     requestAnimationFrame(updateOrbit);
   }
 
