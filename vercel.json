@@ -1,28 +1,4 @@
 {
   "cleanUrls": true,
-  "trailingSlash": true,
-  "headers": [
-    {
-      "source": "/PYB_all_video_frames_30fps_under20MB/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*).mp4",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        },
-        {
-          "key": "Accept-Ranges",
-          "value": "bytes"
-        }
-      ]
-    }
-  ]
+  "trailingSlash": true
 }
