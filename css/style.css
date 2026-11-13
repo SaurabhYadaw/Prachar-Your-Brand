@@ -29,7 +29,7 @@
       --color-white: #ffffff;
       --nav-bg: rgba(255, 255, 255, 0.92);
       --nav-border: rgba(13, 17, 23, 0.06);
-      --overlay-gradient: radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.4) 100%);
+      --overlay-gradient: none;
       
       /* Typography */
       --font-display: 'Anton', 'Space Grotesk', 'Sora', -apple-system, sans-serif;
@@ -68,7 +68,7 @@
       --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.4);
       --shadow-card: 0 10px 30px -4px rgba(0, 0, 0, 0.5);
       --shadow-card-hover: 0 20px 40px -6px rgba(0, 71, 255, 0.28);
-      --overlay-gradient: radial-gradient(circle at 60% 40%, rgba(9, 13, 22, 0) 0%, rgba(9, 13, 22, 0.35) 75%, rgba(9, 13, 22, 0.85) 100%);
+      --overlay-gradient: none;
     }
 
     html {
@@ -113,6 +113,7 @@
       height: 100%;
       object-fit: cover;
       opacity: 0.14; /* EXACTLY 14% (0.14) soft ambient opacity for background portrait */
+      background: url('/PYB_all_video_frames_30fps_under20MB/frame_0001.jpg') center center / cover no-repeat;
       transition: opacity 0.3s ease;
     }
 

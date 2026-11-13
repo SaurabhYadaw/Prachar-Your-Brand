@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initialize theme
-  const initialTheme = getStoredTheme() || getSystemTheme();
+  // Initialize theme (Default to signature Light Mode unless user explicitly toggled)
+  const initialTheme = getStoredTheme() || 'light';
   applyTheme(initialTheme);
 
   themeToggleBtns.forEach(btn => {
@@ -1086,7 +1086,7 @@ startxref
     const FRAME_PATH = (idx) =>
       `/PYB_all_video_frames_30fps_under20MB/frame_${String(idx).padStart(4, '0')}.jpg`;
 
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d', { alpha: true });
     const images = new Array(TOTAL_FRAMES);
     const isLoaded = new Array(TOTAL_FRAMES).fill(false);
     let targetProgress = 0;
@@ -1150,6 +1150,7 @@ startxref
         dy = 0;
       }
 
+      ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, dx, dy, dw, dh);
       lastDrawnIndex = frameIdx;
     }
