@@ -732,19 +732,131 @@ startxref
     });
   }
 
-  // Video hover/click play toggles
+  // Premium Portfolio Video Player System (Play/Pause, Sound Toggle, No-Simultaneous Play)
+  const allPortfolioVideos = Array.from(document.querySelectorAll('.portfolio-media-box video'));
+  const spotlightVideo = document.getElementById('carnivalSpotlightVideo');
+
+  function pauseAllExcept(activeVideo) {
+    allPortfolioVideos.forEach(v => {
+      if (v !== activeVideo && !v.paused) {
+        v.pause();
+        const box = v.closest('.portfolio-media-box');
+        if (box) updateCardPlayerUI(box, v);
+      }
+    });
+  }
+
+  function updateCardPlayerUI(box, video) {
+    const playTrigger = box.querySelector('.portfolio-play-trigger');
+    const audioBtn = box.querySelector('.portfolio-audio-toggle');
+
+    if (video.paused) {
+      box.classList.remove('is-playing');
+      if (playTrigger) {
+        playTrigger.setAttribute('aria-label', 'Play Video');
+        const iconPlay = playTrigger.querySelector('.icon-play');
+        const iconPause = playTrigger.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = 'block';
+        if (iconPause) iconPause.style.display = 'none';
+      }
+    } else {
+      box.classList.add('is-playing');
+      if (playTrigger) {
+        playTrigger.setAttribute('aria-label', 'Pause Video');
+        const iconPlay = playTrigger.querySelector('.icon-play');
+        const iconPause = playTrigger.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = 'none';
+        if (iconPause) iconPause.style.display = 'block';
+      }
+    }
+
+    if (audioBtn) {
+      const isMuted = video.muted;
+      const iconMuted = audioBtn.querySelector('.icon-muted');
+      const iconUnmuted = audioBtn.querySelector('.icon-unmuted');
+      const textSpan = audioBtn.querySelector('.audio-btn-text');
+
+      if (isMuted) {
+        audioBtn.classList.remove('is-unmuted');
+        if (iconMuted) iconMuted.style.display = 'inline-block';
+        if (iconUnmuted) iconUnmuted.style.display = 'none';
+        if (textSpan) textSpan.textContent = 'Muted';
+      } else {
+        audioBtn.classList.add('is-unmuted');
+        if (iconMuted) iconMuted.style.display = 'none';
+        if (iconUnmuted) iconUnmuted.style.display = 'inline-block';
+        if (textSpan) textSpan.textContent = 'Sound On';
+      }
+    }
+  }
+
   document.querySelectorAll('.portfolio-media-box').forEach(box => {
     const video = box.querySelector('video');
     if (!video) return;
-    box.addEventListener('click', (e) => {
-      e.stopPropagation();
+
+    const playTrigger = box.querySelector('.portfolio-play-trigger');
+    const audioBtn = box.querySelector('.portfolio-audio-toggle');
+    const progressFill = box.querySelector('.portfolio-video-progress-fill');
+
+    const togglePlay = (e) => {
+      if (e) e.stopPropagation();
       if (video.paused) {
-        video.muted = false;
-        video.play();
+        pauseAllExcept(video);
+        video.play().then(() => {
+          updateCardPlayerUI(box, video);
+        }).catch(() => {});
       } else {
         video.pause();
+        updateCardPlayerUI(box, video);
+      }
+    };
+
+    if (playTrigger) playTrigger.addEventListener('click', togglePlay);
+    video.addEventListener('click', togglePlay);
+
+    if (audioBtn) {
+      audioBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (video.muted) {
+          allPortfolioVideos.forEach(v => {
+            if (v !== video) {
+              v.muted = true;
+              const b = v.closest('.portfolio-media-box');
+              if (b) updateCardPlayerUI(b, v);
+            }
+          });
+          if (spotlightVideo && !spotlightVideo.muted) {
+            spotlightVideo.muted = true;
+            if (audioStatusText) audioStatusText.textContent = 'Tap for Sound';
+            if (carnivalAudioBtn) { carnivalAudioBtn.style.background = ''; carnivalAudioBtn.style.color = ''; }
+          }
+          video.muted = false;
+          if (video.paused) {
+            pauseAllExcept(video);
+            video.play().catch(() => {});
+          }
+        } else {
+          video.muted = true;
+        }
+        updateCardPlayerUI(box, video);
+      });
+    }
+
+    video.addEventListener('timeupdate', () => {
+      if (progressFill && video.duration) {
+        const pct = (video.currentTime / video.duration) * 100;
+        progressFill.style.width = pct + '%';
       }
     });
+
+    video.addEventListener('play', () => updateCardPlayerUI(box, video));
+    video.addEventListener('pause', () => updateCardPlayerUI(box, video));
+    video.addEventListener('ended', () => {
+      updateCardPlayerUI(box, video);
+      if (progressFill) progressFill.style.width = '0%';
+    });
+
+    updateCardPlayerUI(box, video);
   });
 
   /* ------------------------------------------------------------------------
@@ -852,16 +964,23 @@ startxref
       const first = new Image();
       first.src = FRAME_PATH(1);
       images[0] = first;
-      first.onload = () => {
+
+      if (first.complete && first.naturalWidth > 0) {
         isLoaded[0] = true;
         drawFrame(0);
         loadRemaining();
-      };
-      first.onerror = () => loadRemaining();
+      } else {
+        first.onload = () => {
+          isLoaded[0] = true;
+          drawFrame(0);
+          loadRemaining();
+        };
+        first.onerror = () => loadRemaining();
+      }
     }
 
     function loadRemaining() {
-      const CONCURRENCY = 12;
+      const CONCURRENCY = 16;
       let next = 1;
       function loadNext() {
         if (next >= TOTAL_FRAMES) return;
@@ -869,7 +988,17 @@ startxref
         const img = new Image();
         img.src = FRAME_PATH(idx + 1);
         images[idx] = img;
-        img.onload = () => { isLoaded[idx] = true; loadNext(); };
+        img.onload = () => {
+          isLoaded[idx] = true;
+          const currentTarget = Math.min(
+            TOTAL_FRAMES - 1,
+            Math.max(0, Math.round(smoothProgress * (TOTAL_FRAMES - 1)))
+          );
+          if (currentTarget === idx && lastDrawnIndex !== idx) {
+            drawFrame(idx);
+          }
+          loadNext();
+        };
         img.onerror = () => loadNext();
       }
       for (let i = 0; i < CONCURRENCY; i++) loadNext();

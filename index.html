@@ -422,14 +422,37 @@
         </div>
       </div>
 
-      <!-- Preview Grid of 2 Top Videos -->
-      <div class="portfolio-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+      <!-- Featured Video Portfolio Showcase (Responsive Two-Column Grid) -->
+      <div class="portfolio-grid">
+
+        <!-- Card 1: Baraat Energy Reel -->
         <article class="portfolio-card">
           <div class="portfolio-media-box">
             <video class="portfolio-video" src="/video_baraat.mp4" loop muted playsinline preload="metadata"></video>
             <div class="media-badge">Video Production</div>
-            <div class="media-hover-overlay">
-              <div class="play-indicator-pill">Click to Toggle Sound</div>
+            <button class="portfolio-audio-toggle" type="button" aria-label="Toggle Sound">
+              <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="audio-btn-text">Muted</span>
+            </button>
+            <button class="portfolio-play-trigger" type="button" aria-label="Play Video">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+            <div class="portfolio-video-progress">
+              <div class="portfolio-video-progress-fill"></div>
             </div>
           </div>
           <div class="portfolio-card-content">
@@ -445,12 +468,34 @@
           </div>
         </article>
 
+        <!-- Card 2: Emotional Story Film -->
         <article class="portfolio-card">
           <div class="portfolio-media-box">
             <video class="portfolio-video" src="/video_emotional.mp4" loop muted playsinline preload="metadata"></video>
             <div class="media-badge">Story Reel</div>
-            <div class="media-hover-overlay">
-              <div class="play-indicator-pill">Click to Toggle Sound</div>
+            <button class="portfolio-audio-toggle" type="button" aria-label="Toggle Sound">
+              <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="audio-btn-text">Muted</span>
+            </button>
+            <button class="portfolio-play-trigger" type="button" aria-label="Play Video">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+            <div class="portfolio-video-progress">
+              <div class="portfolio-video-progress-fill"></div>
             </div>
           </div>
           <div class="portfolio-card-content">
@@ -465,6 +510,93 @@
             </div>
           </div>
         </article>
+
+        <!-- Card 3: Carnival Sunset Reel -->
+        <article class="portfolio-card">
+          <div class="portfolio-media-box">
+            <video class="portfolio-video" src="/video_carnival.mp4" loop muted playsinline preload="metadata"></video>
+            <div class="media-badge">Event Coverage</div>
+            <button class="portfolio-audio-toggle" type="button" aria-label="Toggle Sound">
+              <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="audio-btn-text">Muted</span>
+            </button>
+            <button class="portfolio-play-trigger" type="button" aria-label="Play Video">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+            <div class="portfolio-video-progress">
+              <div class="portfolio-video-progress-fill"></div>
+            </div>
+          </div>
+          <div class="portfolio-card-content">
+            <div class="portfolio-card-cat">Event Coverage &bull; Color Grading</div>
+            <h3 class="portfolio-card-title">Carnival of Shikha &amp; Neel &ndash; Sunset Reel</h3>
+            <p class="portfolio-card-desc">
+              Golden-hour cinematography highlighting warm sunset tones, vivid festivity, and synchronized acoustic music track.
+            </p>
+            <div class="portfolio-card-footer">
+              <span class="client-pill">PYB Studio</span>
+              <a href="/portfolio/" class="portfolio-link">Explore Details &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: Introduced Ladki Wale -->
+        <article class="portfolio-card">
+          <div class="portfolio-media-box">
+            <video class="portfolio-video" src="/video_ladki_wale.mp4" loop muted playsinline preload="metadata"></video>
+            <div class="media-badge">Promotional Reel</div>
+            <button class="portfolio-audio-toggle" type="button" aria-label="Toggle Sound">
+              <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="audio-btn-text">Muted</span>
+            </button>
+            <button class="portfolio-play-trigger" type="button" aria-label="Play Video">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+            <div class="portfolio-video-progress">
+              <div class="portfolio-video-progress-fill"></div>
+            </div>
+          </div>
+          <div class="portfolio-card-content">
+            <div class="portfolio-card-cat">Wedding Entry &bull; High Energy</div>
+            <h3 class="portfolio-card-title">Introduced Ladki Wale &ndash; Creative Entry Showcase</h3>
+            <p class="portfolio-card-desc">
+              Playful bridal party introductions featuring rhythmic cuts, vibrant attire color enhancement, and upbeat transition sound design.
+            </p>
+            <div class="portfolio-card-footer">
+              <span class="client-pill">PYB Production</span>
+              <a href="/portfolio/" class="portfolio-link">Explore Details &rarr;</a>
+            </div>
+          </div>
+        </article>
+
       </div>
 
       <div style="text-align: center; margin-top: 40px;">

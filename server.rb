@@ -39,14 +39,25 @@ class MultiPageFileHandler < WEBrick::HTTPServlet::FileHandler
   end
 end
 
-port = 8080
-server = WEBrick::HTTPServer.new(
-  Port: port,
-  DocumentRoot: File.expand_path(__dir__),
-  BindAddress: '0.0.0.0',
-  Logger: WEBrick::Log.new($stderr, WEBrick::Log::WARN),
-  AccessLog: []
-)
+server = nil
+port = nil
+[8080, 8081, 8082, 3000].each do |p|
+  begin
+    server = WEBrick::HTTPServer.new(
+      Port: p,
+      DocumentRoot: File.expand_path(__dir__),
+      BindAddress: '0.0.0.0',
+      Logger: WEBrick::Log.new($stderr, WEBrick::Log::WARN),
+      AccessLog: []
+    )
+    port = p
+    break
+  rescue Errno::EADDRINUSE
+    next
+  end
+end
+
+abort("No available port found among [8080, 8081, 8082, 3000]") if server.nil?
 
 server.mount('/', MultiPageFileHandler, File.expand_path(__dir__))
 trap('INT') { server.shutdown }
