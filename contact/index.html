@@ -237,6 +237,28 @@
               </select>
             </div>
 
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="formBudget" class="form-label">Estimated Monthly Budget</label>
+                <select id="formBudget" class="form-select">
+                  <option value="Under ₹15,000 / month">Under ₹15,000 / month (Essential Growth)</option>
+                  <option value="₹15,000 – ₹30,000 / month" selected>₹15,000 – ₹30,000 / month (Recommended)</option>
+                  <option value="₹30,000 – ₹60,000 / month">₹30,000 – ₹60,000 / month (Aggressive Expansion)</option>
+                  <option value="₹60,000+ / month">₹60,000+ / month (Enterprise &amp; Brand Partnership)</option>
+                  <option value="One-Time Custom Project">One-Time Custom Project / Video Shoot</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="formContactMethod" class="form-label">Preferred Contact Method <span class="req">*</span></label>
+                <select id="formContactMethod" class="form-select" required>
+                  <option value="WhatsApp" selected>WhatsApp (+91 6267458029) – Fastest</option>
+                  <option value="Phone Call">Direct Phone Call</option>
+                  <option value="Email">Email Communication</option>
+                </select>
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="formMessage" class="form-label">Tell us about your project <span class="req">*</span></label>
               <textarea id="formMessage" class="form-textarea" placeholder="Describe your business, your goals and what you want to achieve..." required></textarea>

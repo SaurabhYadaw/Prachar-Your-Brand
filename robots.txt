@@ -1,0 +1,15 @@
+# Robots.txt for PYB – Prachar Your Brand
+# Website: https://pracharyourbrand.com
+
+User-agent: *
+Allow: /
+
+# Disallow build / cache artifacts
+Disallow: /scratch/
+Disallow: /PYB-Website-Ready-For-GitHub/
+Disallow: /PYB_all_video_frames_30fps_under20MB/
+Disallow: /*.zip$
+Disallow: /*.pdf$
+
+# Sitemap declaration
+Sitemap: https://pracharyourbrand.com/sitemap.xml

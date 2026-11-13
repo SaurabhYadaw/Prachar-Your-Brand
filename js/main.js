@@ -166,6 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = document.getElementById('formEmail') ? document.getElementById('formEmail').value.trim() : 'Not provided';
       const business = document.getElementById('formBusiness') ? document.getElementById('formBusiness').value.trim() : 'Not provided';
       const service = document.getElementById('formService') ? document.getElementById('formService').value : 'Digital Marketing';
+      const budget = document.getElementById('formBudget') ? document.getElementById('formBudget').value : '₹15,000 – ₹30,000 / month';
+      const contactMethod = document.getElementById('formContactMethod') ? document.getElementById('formContactMethod').value : 'WhatsApp';
       const message = document.getElementById('formMessage') ? document.getElementById('formMessage').value.trim() : '';
 
       const alertBox = document.getElementById('formAlert');
@@ -188,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Email: [Email]
       // Business: [Business Name]
       // Service Required: [Selected Service]
+      // Estimated Budget: [Budget]
+      // Preferred Contact: [Method]
       // Project Details: [Project Description]
       // Please contact me regarding the next steps.
 
@@ -199,6 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `Email: ${email}\n` +
         `Business: ${business}\n` +
         `Service Required: ${service}\n` +
+        `Estimated Budget: ${budget}\n` +
+        `Preferred Contact Method: ${contactMethod}\n` +
         `Project Details: ${message}\n` +
         `Please contact me regarding the next steps.`;
 
@@ -748,6 +754,95 @@ startxref
   }
 
   /* ------------------------------------------------------------------------
+     7B. BUDGET ESTIMATOR / PROJECT CALCULATOR ENGINE
+     ------------------------------------------------------------------------ */
+  const calcReels = document.getElementById('calcReels');
+  const calcPosts = document.getElementById('calcPosts');
+  const calcMetaAds = document.getElementById('calcMetaAds');
+  const calcOnLocation = document.getElementById('calcOnLocationShoot');
+  const calcWebsite = document.getElementById('calcWebsite');
+
+  if (calcReels && calcPosts) {
+    function updateEstimator() {
+      const reels = parseInt(calcReels.value, 10);
+      const posts = parseInt(calcPosts.value, 10);
+      const meta = calcMetaAds ? calcMetaAds.checked : false;
+      const shoot = calcOnLocation ? calcOnLocation.checked : false;
+      const web = calcWebsite ? calcWebsite.checked : false;
+
+      const reelsValEl = document.getElementById('calcReelsVal');
+      const postsValEl = document.getElementById('calcPostsVal');
+      const totalDisplay = document.getElementById('calcTotalDisplay');
+      const matchedPkg = document.getElementById('calcMatchedPackage');
+      const breakdownList = document.getElementById('calcBreakdownList');
+      const waBtn = document.getElementById('calcWhatsAppBtn');
+
+      if (reelsValEl) reelsValEl.textContent = `${reels} Reel${reels !== 1 ? 's' : ''}`;
+      if (postsValEl) postsValEl.textContent = `${posts} Post${posts !== 1 ? 's' : ''}`;
+
+      // Pricing calculation based on approved PYB rates
+      let basePrice = 0;
+      let planName = 'Custom Tailored Scope';
+      let items = [];
+
+      // Base tier matching
+      if (reels <= 2 && posts <= 12 && !meta && !shoot && !web) {
+        basePrice = 7999;
+        planName = 'Matches: Prachar Start Plan (₹7,999/mo)';
+      } else if (reels <= 4 && posts <= 15 && meta && !shoot && !web) {
+        basePrice = 14999;
+        planName = 'Matches: Prachar Grow Plan (₹14,999/mo)';
+      } else if (reels <= 6 && posts <= 20 && meta && !shoot && !web) {
+        basePrice = 24999;
+        planName = 'Matches: Prachar Pro Plan (₹24,999/mo)';
+      } else {
+        // Dynamic Calculation
+        let core = 0;
+        if (reels > 0 || posts > 0) {
+          core = 4999 + (reels * 2000) + (posts * 250);
+        }
+        if (meta) core += 4500;
+        if (shoot) core += 4999;
+        if (web) core += 6999;
+        basePrice = Math.max(7999, Math.round(core / 500) * 500);
+        planName = `Custom Tailored Scope (₹${basePrice.toLocaleString('en-IN')})`;
+      }
+
+      items.push(`<span>&bull; ${reels} High-Retention Reels (Scripting &amp; Editing)</span>`);
+      items.push(`<span>&bull; ${posts} Custom Creative Post Designs</span>`);
+      if (meta) items.push(`<span>&bull; Meta Ads Campaign Management &amp; Optimization</span>`);
+      if (shoot) items.push(`<span>&bull; Cinema Shoot (On-Location Raipur Gear &amp; Direction)</span>`);
+      if (web) items.push(`<span>&bull; Responsive Business Landing Page</span>`);
+
+      if (totalDisplay) totalDisplay.textContent = `₹${basePrice.toLocaleString('en-IN')}`;
+      if (matchedPkg) matchedPkg.textContent = planName;
+      if (breakdownList) breakdownList.innerHTML = items.join('');
+
+      // Build WhatsApp URL
+      const waText = 
+        `Hello PYB Team!\n` +
+        `I configured an estimated project on your website calculator:\n\n` +
+        `• Video Reels: ${reels} reels/month\n` +
+        `• Creative Posts: ${posts} posts/month\n` +
+        `• Meta Ads Management: ${meta ? 'Yes' : 'No'}\n` +
+        `• On-Location Shoot: ${shoot ? 'Yes (Raipur)' : 'No'}\n` +
+        `• Website Development: ${web ? 'Yes (Landing Page)' : 'No'}\n` +
+        `• Indicative Investment: ₹${basePrice.toLocaleString('en-IN')}\n\n` +
+        `Please share further details and shoot availability.`;
+
+      if (waBtn) {
+        waBtn.href = `https://wa.me/916267458029?text=${encodeURIComponent(waText)}`;
+      }
+    }
+
+    [calcReels, calcPosts, calcMetaAds, calcOnLocation, calcWebsite].forEach(el => {
+      if (el) el.addEventListener('input', updateEstimator);
+    });
+
+    updateEstimator();
+  }
+
+  /* ------------------------------------------------------------------------
      8. PORTFOLIO FILTER CATEGORIES
      ------------------------------------------------------------------------ */
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -877,6 +972,16 @@ startxref
 
     if (playTrigger) playTrigger.addEventListener('click', togglePlay);
     video.addEventListener('click', togglePlay);
+
+    // Fullscreen support on double click
+    video.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      }
+    });
 
     if (audioBtn) {
       audioBtn.addEventListener('click', (e) => {
@@ -1075,5 +1180,29 @@ startxref
     updateScroll();
     preloadFrames();
     requestAnimationFrame(tickScroll);
+  }
+
+  /* ------------------------------------------------------------------------
+     10. PROGRESSIVE SCROLL REVEAL MICRO-INTERACTIONS
+     ------------------------------------------------------------------------ */
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealTargets = document.querySelectorAll(
+      '.service-card, .portfolio-card, .process-step-card, .pricing-card, .value-card, .principle-card, .budget-estimator-card, .about-card'
+    );
+    revealTargets.forEach(el => el.classList.add('reveal-on-scroll'));
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.08
+    });
+
+    revealTargets.forEach(el => revealObserver.observe(el));
   }
 });

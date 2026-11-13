@@ -2909,6 +2909,74 @@
   margin-top: 3px;
 }
 
+/* FAQ Details & Summary Animation */
+details.faq-item {
+  transition: all 0.25s ease;
+}
+details.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+details.faq-item[open] summary span:last-child {
+  transform: rotate(45deg);
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+details.faq-item summary span:last-child {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+details.faq-item:hover {
+  border-color: var(--color-royal-blue-border);
+}
+
+/* ==========================================================================
+   INTERACTIVE BUDGET ESTIMATOR / PROJECT CALCULATOR
+   ========================================================================== */
+.budget-estimator-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.estimator-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .budget-estimator-card {
+    padding: 28px 20px;
+  }
+  .estimator-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.estimator-slider {
+  width: 100%;
+  accent-color: var(--color-royal-blue);
+  cursor: pointer;
+}
+
+.estimator-summary-card {
+  background: var(--color-light-grey);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="dark"] .estimator-summary-card {
+  background: #161f30;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 /* ==========================================================================
    QUOTATION BUILDER & INVOICE PREVIEW STYLES
    ========================================================================== */
@@ -3432,6 +3500,29 @@
 [data-theme="dark"] .footer-bottom {
   border-top-color: rgba(255, 255, 255, 0.06);
   color: var(--color-muted);
+}
+
+/* ==========================================================================
+   SCROLL REVEAL MICRO-INTERACTIONS
+   ========================================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* ==========================================================================
