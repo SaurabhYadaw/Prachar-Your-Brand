@@ -891,6 +891,55 @@ startxref
     });
   }
 
+  // Carnival spotlight play/pause toggle & animated play ring
+  const carnivalPlayBtn = document.getElementById('carnivalPlayToggle');
+  const carnivalWrapper = document.querySelector('.carnival-video-wrapper');
+
+  if (carnivalSpotlight) {
+    function updateSpotlightPlayUI() {
+      if (!carnivalWrapper) return;
+      if (carnivalSpotlight.paused) {
+        carnivalWrapper.classList.remove('is-playing');
+        if (carnivalPlayBtn) {
+          carnivalPlayBtn.setAttribute('aria-label', 'Play Showreel');
+          const pIcon = carnivalPlayBtn.querySelector('.icon-ring-play');
+          const paIcon = carnivalPlayBtn.querySelector('.icon-ring-pause');
+          if (pIcon) pIcon.style.display = 'block';
+          if (paIcon) paIcon.style.display = 'none';
+        }
+      } else {
+        carnivalWrapper.classList.add('is-playing');
+        if (carnivalPlayBtn) {
+          carnivalPlayBtn.setAttribute('aria-label', 'Pause Showreel');
+          const pIcon = carnivalPlayBtn.querySelector('.icon-ring-play');
+          const paIcon = carnivalPlayBtn.querySelector('.icon-ring-pause');
+          if (pIcon) pIcon.style.display = 'none';
+          if (paIcon) paIcon.style.display = 'block';
+        }
+      }
+    }
+
+    const toggleSpotlightPlay = (e) => {
+      if (e) e.stopPropagation();
+      if (carnivalSpotlight.paused) {
+        pauseAllExcept(carnivalSpotlight);
+        carnivalSpotlight.play().catch(() => {});
+      } else {
+        carnivalSpotlight.pause();
+      }
+      updateSpotlightPlayUI();
+    };
+
+    if (carnivalPlayBtn) carnivalPlayBtn.addEventListener('click', toggleSpotlightPlay);
+    carnivalSpotlight.addEventListener('click', toggleSpotlightPlay);
+    carnivalSpotlight.addEventListener('play', updateSpotlightPlayUI);
+    carnivalSpotlight.addEventListener('pause', updateSpotlightPlayUI);
+
+    if (!carnivalSpotlight.paused && carnivalWrapper) {
+      carnivalWrapper.classList.add('is-playing');
+    }
+  }
+
   // Premium Portfolio Video Player System (Play/Pause, Sound Toggle, No-Simultaneous Play)
   const allPortfolioVideos = Array.from(document.querySelectorAll('.portfolio-media-box video'));
   const spotlightVideo = document.getElementById('carnivalSpotlightVideo');

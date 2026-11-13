@@ -326,11 +326,32 @@
       text-decoration: none;
       transition: color 0.2s ease;
       position: relative;
+      padding: 4px 0;
+    }
+
+    .nav-item-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--color-royal-blue);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-item-link:hover,
     .nav-item-link.active {
       color: var(--color-royal-blue);
+    }
+
+    .nav-item-link:hover::after,
+    .nav-item-link.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
     .nav-actions {
@@ -1188,29 +1209,223 @@
     }
 
     /* Featured Reel Spotlight */
+    .carnival-spotlight-box,
     .featured-reel-showcase {
-      background: linear-gradient(135deg, #0d1117 0%, #161c26 100%);
+      background: linear-gradient(135deg, #0a0f1d 0%, #001f66 100%);
       color: #ffffff;
       border-radius: var(--radius-lg);
       padding: 44px;
       margin-bottom: 56px;
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 52px;
-      align-items: center;
-      box-shadow: 0 20px 50px rgba(0, 71, 255, 0.16), 0 4px 16px rgba(0,0,0,0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      box-shadow: 0 20px 50px rgba(0, 71, 255, 0.2), 0 4px 16px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       position: relative;
       overflow: hidden;
     }
 
-    @media (max-width: 960px) {
+    [data-theme="dark"] .carnival-spotlight-box,
+    [data-theme="dark"] .featured-reel-showcase {
+      background: linear-gradient(135deg, #060911 0%, #081a44 100%);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .carnival-spotlight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 71, 255, 0.25);
+      border: 1px solid rgba(0, 71, 255, 0.5);
+      color: #60a5fa;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulsing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3b82f6;
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+      animation: badgeDotPulse 1.8s infinite;
+    }
+
+    @keyframes badgeDotPulse {
+      0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    }
+
+    .carnival-spotlight-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 52px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .carnival-spotlight-box,
       .featured-reel-showcase {
-        grid-template-columns: 1fr;
         padding: 30px 20px;
-        gap: 36px;
+      }
+      .carnival-spotlight-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
         text-align: center;
       }
+    }
+
+    .carnival-video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65);
+      border: 3px solid rgba(255, 255, 255, 0.18);
+      background: #000000;
+      aspect-ratio: 9 / 16;
+      max-height: 520px;
+    }
+
+    .carnival-video-element {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Animated Play Ring Button */
+    .carnival-play-ring-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(0, 71, 255, 0.92);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 0 0 0 rgba(0, 71, 255, 0.6);
+      transition: all 0.25s ease;
+      animation: carnivalRingPulse 2s infinite;
+    }
+
+    @keyframes carnivalRingPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 71, 255, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 18px rgba(0, 71, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 71, 255, 0);
+      }
+    }
+
+    .carnival-play-ring-btn:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: #0036cc;
+    }
+
+    .carnival-video-wrapper.is-playing .carnival-play-ring-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .carnival-video-wrapper:hover.is-playing .carnival-play-ring-btn {
+      opacity: 0.88;
+      pointer-events: auto;
+    }
+
+    .carnival-audio-pill {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      background: rgba(13, 17, 23, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius-full);
+      padding: 7px 15px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .carnival-audio-pill:hover {
+      background: var(--color-royal-blue);
+      border-color: var(--color-royal-blue);
+      transform: scale(1.04);
+    }
+
+    .carnival-heading {
+      font-size: clamp(24px, 3.2vw, 36px);
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .carnival-subheading {
+      font-size: 15px;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 16px;
+    }
+
+    .carnival-description {
+      font-size: 14.5px;
+      line-height: 1.68;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 24px;
+    }
+
+    .carnival-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .carnival-meta-item {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    .carnival-meta-item .meta-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 2px;
+    }
+
+    .carnival-meta-item .meta-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
     }
 
     .featured-reel-showcase::before {
