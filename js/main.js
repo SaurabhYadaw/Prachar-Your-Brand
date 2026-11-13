@@ -7,6 +7,43 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ------------------------------------------------------------------------
+     0. DAY / NIGHT MODE THEME ENGINE
+     ------------------------------------------------------------------------ */
+  const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+  const getStoredTheme = () => localStorage.getItem('pyb-theme');
+  const getSystemTheme = () => (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('pyb-theme', theme);
+    themeToggleBtns.forEach(btn => {
+      btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+      btn.setAttribute('title', theme === 'dark' ? 'Switch to Day Mode' : 'Switch to Night Mode');
+    });
+  }
+
+  // Initialize theme
+  const initialTheme = getStoredTheme() || getSystemTheme();
+  applyTheme(initialTheme);
+
+  themeToggleBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  });
+
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!getStoredTheme()) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------------
      1. ACTIVE NAVIGATION LINK DETECTION
      ------------------------------------------------------------------------ */
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
@@ -50,21 +87,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileDrawer = document.getElementById('mobileDrawer');
 
   if (mobileBtn && mobileDrawer) {
+    function toggleDrawer(open) {
+      const isOpen = open !== undefined ? open : !mobileDrawer.classList.contains('active');
+      mobileDrawer.classList.toggle('active', isOpen);
+      mobileBtn.setAttribute('aria-expanded', isOpen);
+      if (isOpen) {
+        mobileBtn.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        `;
+      } else {
+        mobileBtn.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        `;
+      }
+    }
+
     mobileBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      mobileDrawer.classList.toggle('active');
-      mobileBtn.setAttribute('aria-expanded', mobileDrawer.classList.contains('active'));
+      toggleDrawer();
     });
 
     document.querySelectorAll('.mobile-menu-link').forEach(link => {
       link.addEventListener('click', () => {
-        mobileDrawer.classList.remove('active');
+        toggleDrawer(false);
       });
     });
 
     document.addEventListener('click', (e) => {
       if (mobileDrawer.classList.contains('active') && !mobileDrawer.contains(e.target) && !mobileBtn.contains(e.target)) {
-        mobileDrawer.classList.remove('active');
+        toggleDrawer(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('active')) {
+        toggleDrawer(false);
       }
     });
   }

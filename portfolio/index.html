@@ -12,6 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/style.css">
+  <!-- Theme Preference Script (Instant Apply, No Flash) -->
+  <script>
+    (function(){
+      try {
+        var s = localStorage.getItem('pyb-theme');
+        var p = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', s || p);
+      } catch(e){}
+    })();
+  </script>
 </head>
 <body>
 
@@ -41,6 +51,25 @@
           </svg>
           <span>6267458029</span>
         </a>
+                <button class="theme-toggle-btn" type="button" aria-label="Toggle Day / Night Mode" title="Toggle Day / Night Mode">
+          <span class="theme-toggle-track">
+            <svg class="theme-icon sun-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-icon moon-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+        </button>
         <a href="/contact/" class="btn btn-primary">LET'S BUILD YOUR BRAND ↗</a>
         <button class="mobile-nav-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -779,7 +808,107 @@
           </div>
         </article>
 
-        <!-- Card 13: Brand Promotion & Identity -->
+        <!-- Card 13: Ojas & Rashi Varmala Royal Ceremony -->
+        <article class="portfolio-card" data-category="video reels event">
+          <div class="portfolio-media-box">
+            <video
+              class="portfolio-video"
+              src="/video_varmala_ojas.mp4"
+              loop
+              muted
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="media-badge">Royal Varmala</div>
+            <button class="portfolio-audio-toggle" type="button" aria-label="Toggle Sound">
+              <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="audio-btn-text">Muted</span>
+            </button>
+            <button class="portfolio-play-trigger" type="button" aria-label="Play Video">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+            <div class="portfolio-video-progress">
+              <div class="portfolio-video-progress-fill"></div>
+            </div>
+          </div>
+          <div class="portfolio-card-content">
+            <div class="portfolio-card-cat">Royal Varmala &bull; Cinematic Grandeur</div>
+            <h3 class="portfolio-card-title">Ojas &amp; Rashi Varmala &ndash; Grand Stage Fireworks &amp; Emotions</h3>
+            <p class="portfolio-card-desc">
+              Spectacular cold-pyro entrance, grand floral stage, and breathtaking cinematic varmala exchange captured with high-speed prime lenses.
+            </p>
+            <div class="portfolio-card-footer">
+              <span class="client-pill">PYB Production</span>
+              <a href="/contact/?service=Video%20Production" class="portfolio-link">Book Similar Shoot &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 14: 50th Golden Anniversary Film -->
+        <article class="portfolio-card" data-category="video reels event brand">
+          <div class="portfolio-media-box">
+            <video
+              class="portfolio-video"
+              src="/video_anniversary.mp4"
+              loop
+              muted
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="media-badge">Anniversary Film</div>
+            <button class="portfolio-audio-toggle" type="button" aria-label="Toggle Sound">
+              <svg class="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="audio-btn-text">Muted</span>
+            </button>
+            <button class="portfolio-play-trigger" type="button" aria-label="Play Video">
+              <svg class="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg class="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+            <div class="portfolio-video-progress">
+              <div class="portfolio-video-progress-fill"></div>
+            </div>
+          </div>
+          <div class="portfolio-card-content">
+            <div class="portfolio-card-cat">Milestone Celebration &bull; Golden Memories</div>
+            <h3 class="portfolio-card-title">50th Golden Anniversary &ndash; Santosh &amp; Kunjbihari Celebration</h3>
+            <p class="portfolio-card-desc">
+              Heartfelt generational storytelling, warm family interviews, and celebratory banquet moments crafted with timeless cinematic warmth.
+            </p>
+            <div class="portfolio-card-footer">
+              <span class="client-pill">PYB Production</span>
+              <a href="/contact/?service=Video%20Production" class="portfolio-link">Book Similar Shoot &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 15: Brand Promotion & Identity -->
         <article class="portfolio-card" data-category="brand social">
           <div class="portfolio-media-box" style="background: linear-gradient(135deg, #0047ff 0%, #161c26 100%); display:flex; align-items:center; justify-content:center; padding: 24px;">
             <img src="/service_graphic.jpg" alt="Brand Identity" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
@@ -798,7 +927,7 @@
           </div>
         </article>
 
-        <!-- Card 14: Social Media Campaigns -->
+        <!-- Card 16: Social Media Campaigns -->
         <article class="portfolio-card" data-category="social brand">
           <div class="portfolio-media-box" style="background: linear-gradient(135deg, #0d1117 0%, #0047ff 100%); display:flex; align-items:center; justify-content:center; padding: 24px;">
             <img src="/service_social.jpg" alt="Social Media Growth" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
@@ -817,7 +946,7 @@
           </div>
         </article>
 
-        <!-- Card 15: Website Projects -->
+        <!-- Card 17: Website Projects -->
         <article class="portfolio-card" data-category="web brand">
           <div class="portfolio-media-box" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); display:flex; align-items:center; justify-content:center; padding: 24px;">
             <img src="/service_web.jpg" alt="Website Project" style="width: 140px; height: 140px; border-radius: 14px; object-fit: cover; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">

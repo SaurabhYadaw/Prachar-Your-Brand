@@ -12,6 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/style.css">
+  <!-- Theme Preference Script (Instant Apply, No Flash) -->
+  <script>
+    (function(){
+      try {
+        var s = localStorage.getItem('pyb-theme');
+        var p = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', s || p);
+      } catch(e){}
+    })();
+  </script>
 </head>
 <body>
 
@@ -41,8 +51,48 @@
           </svg>
           <span>6267458029</span>
         </a>
+                <button class="theme-toggle-btn" type="button" aria-label="Toggle Day / Night Mode" title="Toggle Day / Night Mode">
+          <span class="theme-toggle-track">
+            <svg class="theme-icon sun-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-icon moon-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+        </button>
         <a href="/contact/" class="btn btn-primary">LET'S BUILD YOUR BRAND ↗</a>
+        <button class="mobile-nav-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <ul class="mobile-menu-list">
+        <li><a href="/" class="mobile-menu-link">Home</a></li>
+        <li><a href="/about/" class="mobile-menu-link">About</a></li>
+        <li><a href="/services/" class="mobile-menu-link">Services</a></li>
+        <li><a href="/portfolio/" class="mobile-menu-link">Portfolio</a></li>
+        <li><a href="/process/" class="mobile-menu-link">Process</a></li>
+        <li><a href="/pricing/" class="mobile-menu-link">Pricing</a></li>
+        <li><a href="/contact/" class="mobile-menu-link">Contact</a></li>
+      </ul>
+      <a href="/contact/" class="btn btn-primary" style="width: 100%; justify-content: center;">LET'S BUILD YOUR BRAND ↗</a>
     </div>
   </header>
 
